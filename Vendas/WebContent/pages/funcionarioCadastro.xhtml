@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/templates/template.xhtml">
+
+	<ui:define name="conteudo">
+		<h:form>
+			<p:toolbar>
+				<f:facet name="left">
+					<h:outputText value="Cadastro de Funcionario" />
+				</f:facet>
+			</p:toolbar>
+			<h:panelGrid columns="2">
+				<p:outputLabel value="Código: " />
+				<p:inputText maxlength="20" size="10" />
+				<p:outputLabel value="Nome: " />
+				<p:inputText maxlength="50" size="30" />
+				<p:outputLabel value="CPF: " />
+				<p:inputMask mask="999.999.999-99" maxlength="15" size="15"/>
+				<p:outputLabel value="Senha: " />
+				<p:password maxlength="50" size="30" />
+				<p:outputLabel value="Cargo: " />
+				<p:selectOneMenu>
+					<f:selectItem itemLabel="Selecione um Cargo"/>
+					<f:selectItem itemLabel="Administrador"/>
+					<f:selectItem itemLabel="Gerente"/>
+					<f:selectItem itemLabel="Balconista"/>
+				</p:selectOneMenu>
+			</h:panelGrid>
+			<h:panelGrid columns="3">	
+				<p:button value="Novo" />
+				<p:button value="Salvar" />
+				<p:button value="Voltar"  outcome="/pages/funcionarioPesquisa" />
+			</h:panelGrid>
+		</h:form>
+	</ui:define>
+
+</ui:composition>
