@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/templates/template.xhtml">
+	
+	<ui:define name="metadata">
+	<f:metadata>
+		<f:event listener="#{MBVendas.carregarProdutos}" type="preRenderView"></f:event>
+	</f:metadata>
+</ui:define>
+
+	<ui:define name="conteudo">
+		<h:form id="frmvencad">
+			<p:toolbar>
+				<f:facet name="left">
+					<h:outputText value="Vendas" />
+				</f:facet>
+			</p:toolbar>
+			
+				<p:separator/>
+				
+				<p:dataTable 
+				emptyMessage="Nenhum registro encontrado"
+				value="#{MBVendas.produtos}"
+				filteredValue="#{MBPrudutos.produtosFiltrados}"
+				var="produto"
+				rows="4"
+				paginator="true">
+				
+				<p:column headerText="Código">
+					<h:outputText value="#{produto.codigo}"/>
+				</p:column>
+				<p:column headerText="Descricao" filterBy="#{produto.descricao}" sortBy="#{produto.descricao}">
+					<h:outputText value="#{produto.descricao}"/>
+				</p:column>
+				<p:column headerText="Preco" filterBy="#{produto.valor}">
+					<h:outputText value="#{produto.valor}"/>					
+				</p:column>
+				<p:column headerText="Quantidade">
+					<h:outputText value="#{produto.quantidade}"/>
+				</p:column>
+				<p:column headerText="Fornecedores" filterBy="#{produto.fornecedor.descricao}">
+					<h:outputText value="#{produto.fornecedor.descricao}"/>
+				</p:column>
+				<p:column headerText="Opções">
+					<p:commandButton icon="ui-icon-circle-plus" 
+						actionListener="#{MBVendas.adicionar(produto)}"
+						update=":frmvencad:tbItens "
+						>
+					</p:commandButton>
+					
+				</p:column>
+			</p:dataTable>
+			
+			<p:separator/>
+			
+			<p:dataTable
+				emptyMessage="Nenhum Registro Cadastrado"
+				value="#{MBVendas.itens}"
+				var="item"
+				rows="4"
+				paginator="true"
+				id="tbItens"
+			>
+			<p:column headerText="Nome">
+				<h:outputText value="#{item.produto.descricao}"/>
+			</p:column>
+			
+			<p:column headerText="Valor Item">
+				<h:outputText value="#{item.valor_parcial}"/>
+			</p:column>
+			
+			<p:column headerText="Quantidade">
+				<h:outputText value="#{item.quantidade}"/>
+			</p:column>
+			
+			<p:column headerText="Fornecedor">
+				<h:outputText value="#{item.produto.fornecedor.descricao}"/>
+			</p:column>
+			
+			<p:column headerText="Opções">
+				<p:commandButton icon="ui-icon-close"
+				actionListener="#{MBVendas.remover(item)}"
+				update=":frmvencad:tbItens :frmvencad:txtVenValortotal"/>
+			</p:column>
+				
+			</p:dataTable>
+			
+			<p:separator/>
+			
+			<h:panelGrid columns="2" cellpadding="8">
+				<h:outputText value="Valor Total:"/>
+				<h:outputText 
+					id="txtVenValorTotal"
+					value="#"/> -->
+					
+				<p:commandButton
+					value="Finalizar Venda"
+					actionListener="#{MBVendas.carregarDadosVenda}"
+					oncomplete="PF('dlFinVenda').show()"
+					update="" />
+			
+			</h:panelGrid>
+			
+		</h:form>
+		
+	</ui:define>
+
+</ui:composition>

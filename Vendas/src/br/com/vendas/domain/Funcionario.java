@@ -8,6 +8,11 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.br.CPF;
 
 @Entity
 @Table(name = "tbfuncionarios")
@@ -23,17 +28,21 @@ public class Funcionario {
 	@Column(name="fun_codigo")
 	private Long codigo;
 	
+	@NotNull(message = "Insira o nome")
 	@Column(name="fun_nome", length=50, nullable=false)
 	private String nome;
 	
+	@CPF(message = "CPF Incorreto")
 	@Column(name="fun_cpf", length=14, nullable=false, unique = true)
 	private String cpf;
 	
+	@NotNull(message = "Insira a senha")
+	@Size(min = 5, max = 8, message = "Sua senha deve conter de no maximo de 5 a 8 caracteres")
 	@Column(name="fun_senha", length=50, nullable=false)
 	private String senha;
 	
 	@Column(name="fun_funcao", length=50, nullable=false)
-	
+	@NotNull(message = "Insira um cargo")
 	private String funcao;
 
 	public Long getCodigo() {
@@ -80,6 +89,31 @@ public class Funcionario {
 	public String toString() {
 		return "Funcionario [codigo=" + codigo + ", nome=" + nome + ", cpf=" + cpf + ", senha=" + senha + ", funcao="
 				+ funcao + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Funcionario other = (Funcionario) obj;
+		if (codigo == null) {
+			if (other.codigo != null)
+				return false;
+		} else if (!codigo.equals(other.codigo))
+			return false;
+		return true;
 	}
 	
 	

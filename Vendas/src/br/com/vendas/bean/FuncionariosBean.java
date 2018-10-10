@@ -1,24 +1,25 @@
 package br.com.vendas.bean;
 
-import java.sql.SQLException;
+
 import java.util.ArrayList;
 
-import javax.annotation.PostConstruct;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
-import br.com.vendas.DAO.FornecedoresDAO;
-import br.com.vendas.domain.Fornecedor;
+
+import br.com.vendas.DAO.FuncionariosDAO;
+import br.com.vendas.domain.Funcionario;
 import br.com.vendas.util.JSFUtil;
 
-@ManagedBean(name = "MBFornecedores")
+@ManagedBean(name = "MBFuncionarios")
 @ViewScoped
-public class FornecedoresBean {
+public class FuncionariosBean {
 
-	private Fornecedor fornecedores;
+	private Funcionario funcionario;
 
-	 private ArrayList<Fornecedor>itens;
-	 private ArrayList<Fornecedor>itensFiltrados;
+	 private ArrayList<Funcionario>itens;
+	 private ArrayList<Funcionario>itensFiltrados;
 	 private String acao;
 	 private Long codigo;
 	 
@@ -41,43 +42,24 @@ public class FornecedoresBean {
 	 public void setAcao(String acao) {
 		this.acao = acao;
 	}
-	
+	/*
 	public Fornecedor getFornecedores() {
 		
-	/*	if(fornecedores == null) {
+		if(fornecedores == null) {
 			fornecedores = new Fornecedor();
-		}*/
+		}
 		return fornecedores;
-	}
+	}*/
 
 	//
-	public void setFornecedores(Fornecedor fornecedores) {
-		this.fornecedores = fornecedores;
-	}
-
-	 public ArrayList<Fornecedor> getItens() {
-	 return itens;
-	 }
 	
-	 public void setItens(ArrayList<Fornecedor> itens) {
-	 this.itens = itens;
-	 }
-	
-	
-	 public ArrayList<Fornecedor> getItensFiltrados() {
-	 return itensFiltrados;
-	 }
-	
-	 public void setItensFiltrados(ArrayList<Fornecedor> itensFiltrados) {
-	 this.itensFiltrados = itensFiltrados;
-	 }
 
 	// @PostConstruct
 	 public void prepararPesquisa(){
 		
 	 try {
-	 FornecedoresDAO fdao = new FornecedoresDAO();
-	 itens = (ArrayList<Fornecedor>) fdao.listar();
+	 FuncionariosDAO fdao = new FuncionariosDAO();
+	 itens = (ArrayList<Funcionario>) fdao.listar();
 	
 	 } catch (RuntimeException e) {
 	 JSFUtil.adicionarMensagemErro("ex.getMessage()");
@@ -87,7 +69,37 @@ public class FornecedoresBean {
 	 }
 	 
 	 
-	 public void carregarCadastro(){
+	 public Funcionario getFuncionario() {
+		return funcionario;
+	}
+
+
+	public void setFuncionario(Funcionario funcionario) {
+		this.funcionario = funcionario;
+	}
+
+
+	public ArrayList<Funcionario> getItens() {
+		return itens;
+	}
+
+
+	public void setItens(ArrayList<Funcionario> itens) {
+		this.itens = itens;
+	}
+
+
+	public ArrayList<Funcionario> getItensFiltrados() {
+		return itensFiltrados;
+	}
+
+
+	public void setItensFiltrados(ArrayList<Funcionario> itensFiltrados) {
+		this.itensFiltrados = itensFiltrados;
+	}
+
+
+	public void carregarCadastro(){
 
 		 try {
 		     
@@ -108,14 +120,14 @@ public class FornecedoresBean {
 			 if(codigo != null){
 				
 				 
-			FornecedoresDAO fdao = new FornecedoresDAO();	
+			FuncionariosDAO fdao = new FuncionariosDAO();	
 	
-    		fornecedores = fdao.buscarPorCodigo(codigo);
+    		funcionario = fdao.buscarPorCodigo(codigo);
 				 
 			 }
 			 else
 				 {
-				fornecedores = new Fornecedor();
+				funcionario = new Funcionario();
 				
 			 }
 			 
@@ -129,20 +141,20 @@ public class FornecedoresBean {
 	 
 
 	 public void novo(){
-	 fornecedores = new Fornecedor();
+	 funcionario = new Funcionario();
 	 }
 
 	public void salvar() {
 
 		try {
-			FornecedoresDAO fdao = new FornecedoresDAO();
-			fdao.salvar(fornecedores);
+			FuncionariosDAO fdao = new FuncionariosDAO();
+			fdao.salvar(funcionario);
 			
-			fornecedores = new Fornecedor();
+			funcionario = new Funcionario();
 
 			// itens = fdao.listar();
 
-			JSFUtil.adicionarMensagemSucesso("Fornecedor salvo com sucesso!");
+			JSFUtil.adicionarMensagemSucesso("Funcionario salvo com sucesso!");
 
 		} catch (RuntimeException e) {
 			JSFUtil.adicionarMensagemErro("ex.getMessage()");
@@ -154,15 +166,15 @@ public class FornecedoresBean {
 	
 	 public void excluir(){
 	 try {
-	 FornecedoresDAO fdao = new FornecedoresDAO();
-	 fdao.excluir(fornecedores);
+	 FuncionariosDAO fdao = new FuncionariosDAO();
+	 fdao.excluir(funcionario);
 	
 	
 	
-	 JSFUtil.adicionarMensagemSucesso("Fornecedor excluido com sucesso!");
+	 JSFUtil.adicionarMensagemSucesso("Funcionario excluido com sucesso!");
 	
 	 } catch (RuntimeException e) {
-	 JSFUtil.adicionarMensagemErro("Não é possível excluir um fornecedor que tenha um produto associado!");
+	 JSFUtil.adicionarMensagemErro("Não é possível excluir um funcionario que tenha um venda associado!");
 	 e.printStackTrace();
 	 }
 	 }
@@ -173,11 +185,11 @@ public class FornecedoresBean {
 	
 	 public void editar(){
 	 try {
-	 FornecedoresDAO fdao = new FornecedoresDAO();
-	 fdao.editar(fornecedores);
+	 FuncionariosDAO fdao = new FuncionariosDAO();
+	 fdao.editar(funcionario);
 	
 	
-	 JSFUtil.adicionarMensagemSucesso("Fornecedor editado com sucesso!");
+	 JSFUtil.adicionarMensagemSucesso("Funcionario editado com sucesso!");
 	
 	 } catch (RuntimeException e) {
 	 JSFUtil.adicionarMensagemErro("ex.getMessage()");
