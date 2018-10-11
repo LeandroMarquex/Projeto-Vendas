@@ -12,16 +12,17 @@ import br.com.vendas.util.HibernateUtil;
 
 public class VendasDAO {
 	
-	public void salvar(Vendas vendas) {
+	public Long salvar(Vendas vendas) {
 
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
 
 		Transaction transacao = null;
+		Long codigo = null;
 
 		try {
 
 			transacao = sessao.beginTransaction(); // abrir a transação
-			sessao.save(vendas);
+			codigo = (Long)sessao.save(vendas);
 			transacao.commit(); // confirmando a transação
 
 		} catch (RuntimeException e) {
@@ -32,6 +33,7 @@ public class VendasDAO {
 		} finally {
 			sessao.close();
 		}
+		return codigo;
 	}
 
 	@SuppressWarnings("unchecked")
