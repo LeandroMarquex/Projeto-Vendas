@@ -66,7 +66,7 @@
 				<p:button 
 					value="Novo" 
 					actionLinstener="#{MBFuncionarios.novo}" 
-					update=":frmfuncad:pnfuncad" 
+					update=":msgGlobal :frmfuncad:pnfuncad"
 					rendered="#{MBFuncionarios.acao == 'Novo'}"/>
 					
 				<p:commandButton 
@@ -77,12 +77,12 @@
 				<p:commandButton 
 					value="Excluir" 
 					actionListener="#{MBFuncionarios.excluir}"
-					update=":msgGlobal" rendered="#{MBFuncionarios.acao == 'Excluir'}"/>
+					update=":msgGlobal :frmfuncad:pnfuncad" rendered="#{MBFuncionarios.acao == 'Excluir'}"/>
 					
 				<p:commandButton 
 					value="Editar"
 					actionListener="MBFuncionarios.editar"
-					update=":msgGlobal" rendered="#{MBFuncionarios.acao == 'Editar'}"/>	
+					update=":msgGlobal :frmfuncad:pnfuncad" rendered="#{MBFuncionarios.acao == 'Editar'}"/>	
 					
 				<p:button value="Voltar"  outcome="/pages/funcionarioPesquisa" />
 			</h:panelGrid>

@@ -6,14 +6,15 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	template="/templates/template.xhtml">
-	
+
 	<ui:define name="metadata">
-	<f:metadata>
-		<f:event listener="#{MBFornecedores.carregarCadastro}" type="preRenderView"></f:event>
-		<f:viewParam name="foracao" value="#{MBFornecedores.acao}"/>
-		<f:viewParam name="forcod" value="#{MBFornecedores.codigo}"/>
-	</f:metadata>
-</ui:define>
+		<f:metadata>
+			<f:event listener="#{MBFornecedores.carregarCadastro}"
+				type="preRenderView"></f:event>
+			<f:viewParam name="foracao" value="#{MBFornecedores.acao}" />
+			<f:viewParam name="forcod" value="#{MBFornecedores.codigo}" />
+		</f:metadata>
+	</ui:define>
 
 	<ui:define name="conteudo">
 		<h:form id="frmforcad">
@@ -24,41 +25,36 @@
 			</p:toolbar>
 			<h:panelGrid columns="2" id="pnforcad">
 				<p:outputLabel value="Código: " />
-				<p:inputText maxlength="20" size="10" readonly="true" value="#{MBFornecedores.fornecedores.codigo}" />
+				<p:inputText maxlength="20" size="10" readonly="true"
+					value="#{MBFornecedores.fornecedores.codigo}" />
 				<p:outputLabel value="Descrição: " />
-				<p:inputText 
-					maxlength="50" 
-					size="30" 
-					value="#{MBFornecedores.fornecedores.descricao}" 
+				<p:inputText maxlength="50" size="30"
+					value="#{MBFornecedores.fornecedores.descricao}"
 					readonly="#{MBFornecedores.acao == 'Excluir'}">
-					<f:validateBean/>
-					</p:inputText>
+					<f:validateBean />
+				</p:inputText>
 			</h:panelGrid>
-			<h:panelGrid columns="3">	
-				
-					
-				<p:commandButton
-					 value="Salvar" 
-					 actionListener="#{MBFornecedores.salvar}" 
-					 update=":msgGlobal :frmforcad:pnforcad"
-					 
-					 />
-				
-				<p:commandButton 
-					value="Excluir" 
-					actionListener="#{MBFornecedores.excluir}" 
-					update=":msgGlobal"
-					rendered="#{MBFornecedores.acao == 'Excluir'}"/>
-				<p:commandButton 
-					value="Editar" 
-					actionListener="#{MBFornecedores.editar}" 
-					update=":msgGlobal" 
-					rendered="#{MBFornecedores.acao == 'Editar'}"/>
-				<p:button 
-					value="Voltar"  
-					outcome="/pages/fornecedorPesquisa" />
+			<h:panelGrid columns="5">
+				<p:button value="Novo" actionListener="#{MBFornecedores.novo}"
+					update=":frmforcad:pnforcad"
+					rendered="#{MBFornecedores.acao == 'Novo'}" />
+				<p:commandButton value="Salvar"
+					actionListener="#{MBFornecedores.salvar}"
+					update=":msgGlobal :frmforcad:pnforcad" />
+
+				<p:commandButton value="Excluir"
+					actionListener="#{MBFornecedores.excluir}" update=":msgGlobal :frmforcad:pnforcad"
+					rendered="#{MBFornecedores.acao == 'Excluir'}" />
+
+				<p:commandButton value="Editar"
+					actionListener="#{MBFornecedores.editar}" update=":msgGlobal :frmforcad:pnforcad"
+					rendered="#{MBFornecedores.acao == 'Editar'}" />
+
+				<p:button value="Voltar" outcome="/pages/fornecedorPesquisa.xhtml" />
+
 			</h:panelGrid>
 		</h:form>
+
 	</ui:define>
 
 </ui:composition>

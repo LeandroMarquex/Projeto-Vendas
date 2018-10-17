@@ -78,12 +78,12 @@
 				<p:commandButton 
 					value="Excluir" 
 					actionListener="#{MBProdutos.excluir}"
-					update=":msgGlobal" rendered="#{MBProdutos.acao == 'Excluir'}"/>
+					update=":msgGlobal :frmprocad:pnprocad" rendered="#{MBProdutos.acao == 'Excluir'}"/>
 					
 				<p:commandButton 
 					value="Editar"
 					actionListener="MBProdutos.editar"
-					update=":msgGlobal" rendered="#{MBProdutos.acao == 'Editar'}"/>	
+					update=":msgGlobal :frmprocad:pnprocad" rendered="#{MBProdutos.acao == 'Editar'}"/>	
 					
 				<p:button value="Voltar"  outcome="/pages/produtoPesquisa" />
 			</h:panelGrid>
